@@ -23,6 +23,8 @@ public class BattleSystem : MonoBehaviour
 
     public BattleHUD playerHUD;
     public BattleHUD enemyHUD;
+    public QuestionManager questionManager;
+
     private void Awake()
     {
         playerUnit = GameObject.Find("Player Manager").GetComponent<PlayerManager>();
@@ -31,13 +33,12 @@ public class BattleSystem : MonoBehaviour
     void Start()
     {
         battleState = BattleState.Start;
-        SetupBattle();
+        StartCoroutine(SetupBattle());
     }
 
-    void SetupBattle()
+    IEnumerator SetupBattle()
     {
         GameObject playerGO =  Instantiate(playerPrefab, playerLocation);
-
 
         GameObject enemyGO = Instantiate(enemyPrefab, enemyLocation);
         enemyUnit = enemyGO.GetComponent<UnitParameters>();
@@ -48,7 +49,16 @@ public class BattleSystem : MonoBehaviour
 
         enemyHUD.nameText.text = enemyUnit.unitName;
         enemyHUD.updateHP(enemyUnit.currentHP, enemyUnit.maxHP);
-        
+
+        yield return new WaitForSeconds(2f);
+
+        battleState = BattleState.PlayerTurn;
+        PlayerTurn();
+    }
+
+    void PlayerTurn()
+    {
+        questionManager.StartQuestionManager();
     }
 
 }
