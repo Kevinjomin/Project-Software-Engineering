@@ -23,6 +23,7 @@ public class BattleSystem : MonoBehaviour
 
     public BattleHUD playerHUD;
     public BattleHUD enemyHUD;
+    public GameObject questionPanel;
     public QuestionManager questionManager;
 
     private void Awake()
@@ -58,6 +59,7 @@ public class BattleSystem : MonoBehaviour
 
     void PlayerTurn()
     {
+        questionPanel.SetActive(true);
         questionManager.StartQuestionManager();
     }
 

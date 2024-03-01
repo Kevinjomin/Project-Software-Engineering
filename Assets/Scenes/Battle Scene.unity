@@ -1220,6 +1220,7 @@ MonoBehaviour:
   enemyLocation: {fileID: 1178512411}
   playerHUD: {fileID: 1539692971}
   enemyHUD: {fileID: 538781558}
+  questionPanel: {fileID: 628806391}
   questionManager: {fileID: 1510872698}
 --- !u!4 &603027180
 Transform:

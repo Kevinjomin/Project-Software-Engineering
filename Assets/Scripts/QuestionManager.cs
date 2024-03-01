@@ -47,6 +47,11 @@ public class QuestionManager : MonoBehaviour
         }
         AssignAnswersToButton();
 
+        choice1.enabled = true;
+        choice2.enabled = true;
+        choice3.enabled = true;
+        choice4.enabled = true;
+
         choice1.onClick.AddListener(() => OnButtonClick(choice1));
         choice2.onClick.AddListener(() => OnButtonClick(choice2));
         choice3.onClick.AddListener(() => OnButtonClick(choice3));
@@ -184,6 +189,11 @@ public class QuestionManager : MonoBehaviour
             Debug.Log("Wrong Answer!");
             buttonImage.color = new Color(255, 0, 0);
         }
+        choice1.enabled = false;
+        choice2.enabled = false;
+        choice3.enabled = false;
+        choice4.enabled = false;
+
         yield return new WaitForSeconds(0.5f);
 
         buttonImage.color = new Color(255, 255, 255);
