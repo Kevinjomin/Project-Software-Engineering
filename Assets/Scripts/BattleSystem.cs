@@ -19,7 +19,7 @@ public class BattleSystem : MonoBehaviour
     public Transform playerLocation;
     public Transform enemyLocation;
 
-    PlayerManager playerManager;
+    CombatManager combatManager;
     UnitParameters playerUnit;
     UnitParameters enemyUnit;
 
@@ -36,10 +36,10 @@ public class BattleSystem : MonoBehaviour
 
     private void Awake()
     {
-        if (playerManager == null)
+        if (combatManager == null)
         {
-            playerManager = FindObjectOfType<PlayerManager>();
-            if (playerManager == null)
+            combatManager = FindObjectOfType<CombatManager>();
+            if (combatManager == null)
             {
                 Debug.Log("Player Manager not found!");
             }
@@ -57,14 +57,19 @@ public class BattleSystem : MonoBehaviour
         GameObject playerGO =  Instantiate(playerPrefab, playerLocation);
         playerUnit = playerGO.GetComponent<UnitParameters>();
 
-        //import stat from player manager to player unit
-        playerUnit.unitName = playerManager.playerName;
+        //import stat from combat manager to player unit
+        playerUnit.unitName = combatManager.playerName;
         playerUnit.damage = 0;
-        playerUnit.maxHP = playerManager.playerMaxHP;
-        playerUnit.currentHP = playerManager.playerCurrentHP;
+        playerUnit.maxHP = combatManager.playerMaxHP;
+        playerUnit.currentHP = combatManager.playerCurrentHP;
 
         GameObject enemyGO = Instantiate(enemyPrefab, enemyLocation);
         enemyUnit = enemyGO.GetComponent<UnitParameters>();
+
+        //import stat from combat manager to player unit
+        enemyUnit.unitName = combatManager.enemyName;
+        enemyUnit.maxHP = combatManager.enemyMaxHP;
+        enemyUnit.currentHP = combatManager.enemyCurrentHP;
 
         turn = 0;
         timeLimit = 10f;
@@ -106,7 +111,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
-        int totalPlayerDamage = (int)(pointThisTurn * playerManager.playerDamageMultiplier);
+        int totalPlayerDamage = (int)(pointThisTurn * combatManager.playerDamageMultiplier);
         bool isDead = enemyUnit.takeDamage(totalPlayerDamage);
 
         enemyHUD.updateHP(enemyUnit.currentHP, enemyUnit.maxHP);
@@ -152,7 +157,7 @@ public class BattleSystem : MonoBehaviour
         if (battleState == BattleState.Victory)
         {
             Debug.Log("Victory");
-            playerManager.playerCurrentHP = playerUnit.currentHP;
+            combatManager.playerCurrentHP = playerUnit.currentHP;
         }
         else if(battleState == BattleState.Lost)
         {

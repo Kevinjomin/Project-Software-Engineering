@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : MonoBehaviour
+public class CombatManager : MonoBehaviour
 {
-    private static PlayerManager instance;
+    private static CombatManager instance;
 
     public string playerName;
     public int playerMaxHP;
     public int playerCurrentHP;
     public float playerDamageMultiplier;
+
+    public string enemyName;
+    public int enemyMaxHP;
+    public int enemyCurrentHP;
 
     private void Awake()
     {
@@ -21,20 +25,6 @@ public class PlayerManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
-        }
-    }
-
-    public bool takeDamage(int damage)
-    {
-        playerCurrentHP -= damage;
-
-        if (playerCurrentHP <= 0)
-        {
-            return true; //die
-        }
-        else
-        {
-            return false;
         }
     }
 }
