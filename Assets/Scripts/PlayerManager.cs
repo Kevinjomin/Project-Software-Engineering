@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
     public string playerName;
     public int playerMaxHP;
     public int playerCurrentHP;
-    public int playerDamageMultiplier;
+    public float playerDamageMultiplier;
 
     private void Awake()
     {
@@ -21,6 +21,20 @@ public class PlayerManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    public bool takeDamage(int damage)
+    {
+        playerCurrentHP -= damage;
+
+        if (playerCurrentHP <= 0)
+        {
+            return true; //die
+        }
+        else
+        {
+            return false;
         }
     }
 }

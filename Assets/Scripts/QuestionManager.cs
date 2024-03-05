@@ -12,6 +12,8 @@ public class QuestionManager : MonoBehaviour
     }
     private QuestionType questionType;
 
+    public BattleSystem battleSystem;
+
     public TMP_Text questionText;
     public Button choice1;
     public Button choice2;
@@ -181,6 +183,7 @@ public class QuestionManager : MonoBehaviour
         // Check if the clicked button's text matches the correct answer
         if (button.GetComponentInChildren<TMP_Text>().text == correctAnswer.ToString())
         {
+            battleSystem.pointThisTurn += 10;
             Debug.Log("Correct Answer!");
             buttonImage.color = new Color(0, 255, 0);
         }
