@@ -8,6 +8,10 @@ public class UnitParameters : MonoBehaviour
     public GameObject floatingDamageDisplay;
     private Transform floatingDamagePosition;
 
+    public SpriteRenderer unitSprite;
+    public float spritePositionX;
+    public float spritePositionY;
+
     public string unitName;
     public int damage;
     public int maxHP;
@@ -15,6 +19,7 @@ public class UnitParameters : MonoBehaviour
 
     private void Awake()
     {
+        unitSprite = GetComponentInChildren<SpriteRenderer>();
         floatingDamagePosition = transform.GetChild(1); // this is index 1
         if(currentHP > maxHP)
         {
@@ -37,5 +42,10 @@ public class UnitParameters : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void RepositionSprite()
+    {
+        unitSprite.transform.localPosition = new Vector3(spritePositionX, spritePositionY, transform.localPosition.z);
     }
 }

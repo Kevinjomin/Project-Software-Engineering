@@ -8,9 +8,15 @@ public class OverworldEnemy : MonoBehaviour
     public int damage;
     public int maxHP;
     public int currentHP;
+    public int goldDrop;
 
     private void Start()
     {
         currentHP = maxHP;
+    }
+
+    public void RemoveSelf()
+    {
+        Destroy(gameObject);
     }
 }

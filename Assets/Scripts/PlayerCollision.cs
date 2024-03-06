@@ -5,13 +5,13 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
     private Rigidbody2D rb;
-    public CombatManager combatManager;
+    public CombatHandler combatHandler;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        combatManager = FindObjectOfType<CombatManager>();
+        combatHandler = FindObjectOfType<CombatHandler>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -21,10 +21,8 @@ public class PlayerCollision : MonoBehaviour
             OverworldEnemy enemy = collision.gameObject.GetComponent<OverworldEnemy>();
             if(enemy != null)
             {
-                combatManager.enemyName = enemy.enemyName;
-                combatManager.enemyMaxHP = enemy.maxHP;
-                combatManager.enemyCurrentHP = enemy.currentHP;
-                // trigger combat now
+                combatHandler.ReadEnemyData(enemy.enemyName, enemy.maxHP, enemy.currentHP, enemy.damage, enemy.GetComponentInChildren<SpriteRenderer>());
+                combatHandler.TriggerCombat();
             }
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public enum BattleState
 {
@@ -11,6 +12,8 @@ public enum BattleState
 
 public class BattleSystem : MonoBehaviour
 {
+    private GameManager gameManager;
+
     public BattleState battleState;
 
     public GameObject playerPrefab;
@@ -19,7 +22,7 @@ public class BattleSystem : MonoBehaviour
     public Transform playerLocation;
     public Transform enemyLocation;
 
-    CombatManager combatManager;
+    CombatHandler combatHandler;
     UnitParameters playerUnit;
     UnitParameters enemyUnit;
 
@@ -36,14 +39,16 @@ public class BattleSystem : MonoBehaviour
 
     private void Awake()
     {
-        if (combatManager == null)
+        if (combatHandler == null)
         {
-            combatManager = FindObjectOfType<CombatManager>();
-            if (combatManager == null)
+            combatHandler = FindObjectOfType<CombatHandler>();
+            if (combatHandler == null)
             {
-                Debug.Log("Player Manager not found!");
+                Debug.Log("Combat Handler not found!");
             }
         }
+
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     void Start()
@@ -58,18 +63,14 @@ public class BattleSystem : MonoBehaviour
         playerUnit = playerGO.GetComponent<UnitParameters>();
 
         //import stat from combat manager to player unit
-        playerUnit.unitName = combatManager.playerName;
+        playerUnit.unitName = combatHandler.playerName;
         playerUnit.damage = 0;
-        playerUnit.maxHP = combatManager.playerMaxHP;
-        playerUnit.currentHP = combatManager.playerCurrentHP;
+        playerUnit.maxHP = combatHandler.playerMaxHP;
+        playerUnit.currentHP = combatHandler.playerCurrentHP;
 
         GameObject enemyGO = Instantiate(enemyPrefab, enemyLocation);
         enemyUnit = enemyGO.GetComponent<UnitParameters>();
-
-        //import stat from combat manager to player unit
-        enemyUnit.unitName = combatManager.enemyName;
-        enemyUnit.maxHP = combatManager.enemyMaxHP;
-        enemyUnit.currentHP = combatManager.enemyCurrentHP;
+        ImportDataToEnemyUnit();
 
         turn = 0;
         timeLimit = 10f;
@@ -111,7 +112,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
-        int totalPlayerDamage = (int)(pointThisTurn * combatManager.playerDamageMultiplier);
+        int totalPlayerDamage = (int)(pointThisTurn * combatHandler.playerDamageMultiplier);
         bool isDead = enemyUnit.takeDamage(totalPlayerDamage);
 
         enemyHUD.updateHP(enemyUnit.currentHP, enemyUnit.maxHP);
@@ -157,12 +158,24 @@ public class BattleSystem : MonoBehaviour
         if (battleState == BattleState.Victory)
         {
             Debug.Log("Victory");
-            combatManager.playerCurrentHP = playerUnit.currentHP;
+            combatHandler.playerCurrentHP = playerUnit.currentHP;
+            gameManager.LoadScene("Overworld Scene");
         }
         else if(battleState == BattleState.Lost)
         {
             Debug.Log("Defeat");
         }
     }
+    private void ImportDataToEnemyUnit()
+    {
+        enemyUnit.unitName = combatHandler.enemyName;
+        enemyUnit.maxHP = combatHandler.enemyMaxHP;
+        enemyUnit.currentHP = combatHandler.enemyCurrentHP;
 
+        enemyUnit.unitSprite.sprite = combatHandler.enemySprite;
+        enemyUnit.unitSprite.color = combatHandler.enemySpriteColor;
+        enemyUnit.spritePositionX = combatHandler.enemySpritePositionX;
+        enemyUnit.spritePositionY = combatHandler.enemySpritePositionY;
+        enemyUnit.RepositionSprite();
+    }
 }
