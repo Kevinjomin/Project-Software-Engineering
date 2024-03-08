@@ -8,6 +8,7 @@ public class CombatHandler : MonoBehaviour
     private static CombatHandler instance;
 
     private GameManager gameManager;
+    private PlayerManager playerManager;
 
     public string playerName;
     public int playerMaxHP;
@@ -39,6 +40,14 @@ public class CombatHandler : MonoBehaviour
         }
 
         gameManager = FindObjectOfType<GameManager>();
+        playerManager = FindObjectOfType<PlayerManager>();
+    }
+    private void ReadPlayerData(string name, int maxHP, int currentHP, float damageMultiplier)
+    {
+        playerName = name;
+        playerMaxHP = maxHP;
+        playerCurrentHP = currentHP;
+        playerDamageMultiplier = damageMultiplier;
     }
 
     public void ReadEnemyData(string name, int maxHP, int currentHP, int damage, SpriteRenderer spriteRenderer)
@@ -66,6 +75,7 @@ public class CombatHandler : MonoBehaviour
 
     public void TriggerCombat()
     {
+        ReadPlayerData(playerManager.playerName, playerManager.maxHP, playerManager.currentHP, playerManager.damageMultiplier);
         gameManager.LoadSceneAdditive("Battle Scene");
         gameManager.DisableGameObjectsInScene("Overworld Scene");
     }
