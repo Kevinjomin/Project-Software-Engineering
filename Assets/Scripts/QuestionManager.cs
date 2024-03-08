@@ -184,12 +184,12 @@ public class QuestionManager : MonoBehaviour
         if (button.GetComponentInChildren<TMP_Text>().text == correctAnswer.ToString())
         {
             battleSystem.pointThisTurn += 10;
-            Debug.Log("Correct Answer!");
+            //Debug.Log("Correct Answer!");
             buttonImage.color = new Color(0, 255, 0);
         }
         else
         {
-            Debug.Log("Wrong Answer!");
+            //Debug.Log("Wrong Answer!");
             buttonImage.color = new Color(255, 0, 0);
         }
         choice1.enabled = false;

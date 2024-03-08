@@ -23,6 +23,40 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    public void LoadSceneAdditive(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
+    }
+
+    public void UnloadScene(string sceneName)
+    {
+        SceneManager.UnloadSceneAsync(sceneName);
+    }
+
+    public void EnableGameObjectsInScene(string sceneName)
+    {
+        Scene scene = SceneManager.GetSceneByName(sceneName);
+        if (scene.IsValid())
+        {
+            foreach (GameObject rootGameObject in scene.GetRootGameObjects())
+            {
+                rootGameObject.SetActive(true);
+            }
+        }
+    }
+
+    public void DisableGameObjectsInScene(string sceneName)
+    {
+        Scene scene = SceneManager.GetSceneByName(sceneName);
+        if (scene.IsValid())
+        {
+            foreach (GameObject rootGameObject in scene.GetRootGameObjects())
+            {
+                rootGameObject.SetActive(false);
+            }
+        }
+    }
+
     public void QuitGame()
     {
         Application.Quit();

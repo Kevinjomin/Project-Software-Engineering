@@ -66,6 +66,7 @@ public class CombatHandler : MonoBehaviour
 
     public void TriggerCombat()
     {
-        gameManager.LoadScene("Battle Scene");
+        gameManager.LoadSceneAdditive("Battle Scene");
+        gameManager.DisableGameObjectsInScene("Overworld Scene");
     }
 }

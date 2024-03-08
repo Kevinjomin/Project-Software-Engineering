@@ -152,20 +152,26 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-
     void EndBattle()
     {
         if (battleState == BattleState.Victory)
         {
-            Debug.Log("Victory");
-            combatHandler.playerCurrentHP = playerUnit.currentHP;
-            gameManager.LoadScene("Overworld Scene");
+            ReturnToOverworld();
         }
         else if(battleState == BattleState.Lost)
         {
             Debug.Log("Defeat");
         }
     }
+
+    private void ReturnToOverworld()
+    {
+        combatHandler.playerCurrentHP = playerUnit.currentHP;
+        FindObjectOfType<Camera>().GetComponent<AudioListener>().enabled = false;
+        gameManager.UnloadScene("Battle Scene");
+        gameManager.EnableGameObjectsInScene("Overworld Scene");
+    }
+
     private void ImportDataToEnemyUnit()
     {
         enemyUnit.unitName = combatHandler.enemyName;
