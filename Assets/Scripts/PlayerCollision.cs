@@ -22,7 +22,7 @@ public class PlayerCollision : MonoBehaviour
             if(enemy != null)
             {
                 combatHandler.ReadEnemyData(enemy.enemyName, enemy.maxHP, enemy.currentHP, enemy.damage, enemy.goldDrop, enemy.GetComponentInChildren<SpriteRenderer>());
-                enemy.RemoveSelf();
+                enemy.Despawn();
                 combatHandler.TriggerCombat();
             }
         }

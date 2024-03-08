@@ -15,7 +15,7 @@ public class OverworldEnemy : MonoBehaviour
         currentHP = maxHP;
     }
 
-    public void RemoveSelf()
+    public void Despawn()
     {
         Destroy(gameObject);
     }
