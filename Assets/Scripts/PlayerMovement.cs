@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    float horizontalInput;
+    private float horizontalInput;
     private bool isFacingRight = true;
 
     [SerializeField] float movementSpeed;
@@ -13,13 +13,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     private Rigidbody2D rb;
-    // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
