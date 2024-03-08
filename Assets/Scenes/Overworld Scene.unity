@@ -204,7 +204,7 @@ Transform:
   m_LocalScale: {x: 12.7748, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &300725879
 BoxCollider2D:
@@ -414,7 +414,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &812603282
 GameObject:
@@ -457,7 +457,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &859672659
 GameObject:
@@ -488,14 +488,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60384fab366b979478fbd41b40b07809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: Player Name
-  playerMaxHP: 1000
-  playerCurrentHP: 1000
-  playerDamageMultiplier: 1
+  playerName: 
+  playerMaxHP: 0
+  playerCurrentHP: 0
+  playerDamageMultiplier: 0
   enemyName: 
   enemyMaxHP: 0
   enemyCurrentHP: 0
   enemyDamage: 0
+  enemyGold: 0
   enemySprite: {fileID: 0}
   enemySpriteColor: {r: 0, g: 0, b: 0, a: 0}
   enemySpritePositionX: 0
@@ -512,7 +513,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &993329114
 GameObject:
@@ -579,7 +580,50 @@ Transform:
   m_Children:
   - {fileID: 1790927326}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1062282575
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1062282577}
+  - component: {fileID: 1062282576}
+  m_Layer: 0
+  m_Name: Level Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1062282576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062282575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a260f514b4d18e45b07e8fd9085b321, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1062282577
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062282575}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.62, y: -0.75, z: -0.76423484}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1431074851
 GameObject:
@@ -723,8 +767,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: Test Player
-  maxHP: 1000
-  currentHP: 900
+  maxHP: 100
+  currentHP: 90
   damageMultiplier: 1
   goldObtained: 0
 --- !u!4 &1557035325
@@ -799,9 +843,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Test Blue Enemy
   damage: 15
-  maxHP: 50
+  maxHP: 30
   currentHP: 0
-  goldDrop: 0
+  goldDrop: 20
 --- !u!4 &1760464427
 Transform:
   m_ObjectHideFlags: 0
@@ -809,13 +853,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1760464424}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -4.29, y: -1.95, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1431074852}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1790927325
 GameObject:
@@ -922,7 +966,7 @@ Transform:
   m_Children:
   - {fileID: 4585378619808828431}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3927518907267777774
 GameObject:
@@ -964,7 +1008,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5028351537956299203, guid: 067a7c35b818709428cfc42003106baf, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5028351537956299203, guid: 067a7c35b818709428cfc42003106baf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1131,7 +1175,7 @@ MonoBehaviour:
   damage: 10
   maxHP: 10
   currentHP: 0
-  goldDrop: 0
+  goldDrop: 10
 --- !u!61 &8896295959900787723
 BoxCollider2D:
   m_ObjectHideFlags: 0

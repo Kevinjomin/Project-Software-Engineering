@@ -13,6 +13,7 @@ public enum BattleState
 public class BattleSystem : MonoBehaviour
 {
     private GameManager gameManager;
+    private PlayerManager playerManager;
 
     public BattleState battleState;
 
@@ -49,6 +50,7 @@ public class BattleSystem : MonoBehaviour
         }
 
         gameManager = FindObjectOfType<GameManager>();
+        playerManager = FindObjectOfType<PlayerManager>();
     }
 
     void Start()
@@ -156,6 +158,8 @@ public class BattleSystem : MonoBehaviour
     {
         if (battleState == BattleState.Victory)
         {
+            playerManager.currentHP = playerUnit.currentHP;
+            playerManager.obtainGold(combatHandler.enemyGold);
             ReturnToOverworld();
         }
         else if(battleState == BattleState.Lost)
@@ -166,7 +170,6 @@ public class BattleSystem : MonoBehaviour
 
     private void ReturnToOverworld()
     {
-        combatHandler.playerCurrentHP = playerUnit.currentHP;
         FindObjectOfType<Camera>().GetComponent<AudioListener>().enabled = false;
         gameManager.UnloadScene("Battle Scene");
         gameManager.EnableGameObjectsInScene("Overworld Scene");
@@ -177,6 +180,7 @@ public class BattleSystem : MonoBehaviour
         enemyUnit.unitName = combatHandler.enemyName;
         enemyUnit.maxHP = combatHandler.enemyMaxHP;
         enemyUnit.currentHP = combatHandler.enemyCurrentHP;
+        enemyUnit.damage = combatHandler.enemyDamage;
 
         enemyUnit.unitSprite.sprite = combatHandler.enemySprite;
         enemyUnit.unitSprite.color = combatHandler.enemySpriteColor;
