@@ -5,12 +5,14 @@ using UnityEngine;
 public class PlayerCollision : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private LevelManager levelManager;
     public CombatHandler combatHandler;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        levelManager = FindObjectOfType<LevelManager>();
         combatHandler = FindObjectOfType<CombatHandler>();
     }
 
@@ -25,6 +27,14 @@ public class PlayerCollision : MonoBehaviour
                 enemy.Despawn();
                 combatHandler.TriggerCombat();
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Portal"))
+        {
+            levelManager.EnterNextLevel();
         }
     }
 }

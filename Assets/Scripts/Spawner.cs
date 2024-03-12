@@ -7,10 +7,13 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField] private List<GameObject> spawnableObjects = new List<GameObject>();
 
+    private GameObject objectToSpawn;
+    private GameObject spawnedObject;
+
     public void SpawnObject()
     {
-        GameObject objectToSpawn = GetRandomObjectFromList();
-        GameObject spawnedObject = Instantiate(objectToSpawn, transform.position, transform.rotation);
+        objectToSpawn = GetRandomObjectFromList();
+        spawnedObject = Instantiate(objectToSpawn, transform.position, transform.rotation);
     }
 
     private GameObject GetRandomObjectFromList()
@@ -26,4 +29,8 @@ public class Spawner : MonoBehaviour
         return spawnableObjects[randomIndex];
     }
 
+    public void DespawnObject()
+    {
+        Destroy(spawnedObject);
+    }
 }

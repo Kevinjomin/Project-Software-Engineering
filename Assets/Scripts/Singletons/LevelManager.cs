@@ -10,8 +10,11 @@ public class LevelManager : MonoBehaviour
     private GameManager gameManager;
 
     private List<Spawner> spawners;
+    private GameObject chosenStage;
 
     [SerializeField] private List<GameObject> stageList;
+
+    public int currentLevel = 1;
 
     private void Awake()
     {
@@ -31,7 +34,7 @@ public class LevelManager : MonoBehaviour
 
     public void SetupLevel()
     {
-        GameObject chosenStage = Instantiate(ChooseStageRandomly());
+        chosenStage = Instantiate(ChooseStageRandomly());
 
         UpdatePlayerPosition();
 
@@ -41,6 +44,24 @@ public class LevelManager : MonoBehaviour
         {
             spawner.SpawnObject();
         }
+        Debug.Log(spawners.Count);
+    }
+
+    public void EnterNextLevel()
+    {
+        currentLevel++;
+        gameManager.ReloadCurrentScene();
+    }
+
+
+    private void RemoveCurrentLevel()
+    {
+        foreach (Spawner spawner in spawners)
+        {
+            spawner.DespawnObject();
+        }
+        spawners.Clear();
+        //Destroy(chosenStage);
     }
 
     private void UpdatePlayerPosition()

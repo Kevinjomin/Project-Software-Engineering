@@ -33,6 +33,12 @@ public class GameManager : MonoBehaviour
         SceneManager.UnloadSceneAsync(sceneName);
     }
 
+    public void ReloadCurrentScene()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
+    }
+
     public void EnableGameObjectsInScene(string sceneName)
     {
         Scene scene = SceneManager.GetSceneByName(sceneName);
