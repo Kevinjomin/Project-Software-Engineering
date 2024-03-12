@@ -30,6 +30,24 @@ public class PlayerManager : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
     }
 
+    public bool isDead()
+    {
+        if(currentHP <= 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHP -= damage;
+        if (isDead())
+        {
+            Debug.LogError("Player died, return to main menu");
+        }
+    }
+
     public void obtainGold(int gold)
     {
         goldObtained += gold;

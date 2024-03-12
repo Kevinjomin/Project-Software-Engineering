@@ -44,7 +44,6 @@ public class LevelManager : MonoBehaviour
         {
             spawner.SpawnObject();
         }
-        Debug.Log(spawners.Count);
     }
 
     public void EnterNextLevel()
