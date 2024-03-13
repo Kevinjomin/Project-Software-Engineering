@@ -53,6 +53,7 @@ public class PlayerManager : MonoBehaviour
         if (isDead())
         {
             Debug.LogError("Player died, return to main menu");
+            gameManager.EndRun();
         }
     }
 

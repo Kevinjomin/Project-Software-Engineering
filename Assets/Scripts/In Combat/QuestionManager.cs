@@ -12,6 +12,7 @@ public class QuestionManager : MonoBehaviour
     }
     private QuestionType questionType;
 
+    private LevelManager levelManager;
     public BattleSystem battleSystem;
 
     public TMP_Text questionText;
@@ -28,12 +29,25 @@ public class QuestionManager : MonoBehaviour
     public int wrongAnswer2;
     public int wrongAnswer3;
 
+    private void Start()
+    {
+        levelManager = FindObjectOfType<LevelManager>();
+    }
+
     public void StartQuestionManager()
     {
 
         //pick question type randomly
         int enumCount = System.Enum.GetValues(typeof(QuestionType)).Length;
-        questionType = (QuestionType)Random.Range(0, enumCount);
+
+        if (levelManager.difficulty == LevelManager.Difficulty.Easy)
+        {
+            questionType = (QuestionType)Random.Range(0, enumCount - 1); //don't include multiplication
+        }
+        else
+        {
+            questionType = (QuestionType)Random.Range(0, enumCount);
+        }
 
         if(questionType == QuestionType.Addition)
         {
@@ -62,8 +76,22 @@ public class QuestionManager : MonoBehaviour
 
     void setAdditionQuestion()
     {
-        firstNumber = Random.Range(10, 100);
-        secondNumber = Random.Range(10, 100);
+        if(levelManager.difficulty == LevelManager.Difficulty.Easy)
+        {
+            firstNumber = Random.Range(1, 9);
+            secondNumber = Random.Range(1, 9);
+        }
+        else if(levelManager.difficulty == LevelManager.Difficulty.Medium)
+        {
+            firstNumber = Random.Range(10, 99);
+            secondNumber = Random.Range(10, 99);
+        }
+        else if(levelManager.difficulty == LevelManager.Difficulty.Hard)
+        {
+            firstNumber = Random.Range(100, 999);
+            secondNumber = Random.Range(100, 999);
+        }
+
         correctAnswer = firstNumber + secondNumber;
 
         questionText.GetComponentInChildren<TMP_Text>().text = firstNumber + " + " + secondNumber;
@@ -82,8 +110,22 @@ public class QuestionManager : MonoBehaviour
     }
     void setSubstractionQuestion()
     {
-        firstNumber = Random.Range(10, 100);
-        secondNumber = Random.Range(1, firstNumber - 1);
+        if (levelManager.difficulty == LevelManager.Difficulty.Easy)
+        {
+            firstNumber = Random.Range(1, 9);
+            secondNumber = Random.Range(1, firstNumber - 1);
+        }
+        else if (levelManager.difficulty == LevelManager.Difficulty.Medium)
+        {
+            firstNumber = Random.Range(10, 200);
+            secondNumber = Random.Range(1, firstNumber - 1);
+        }
+        else if (levelManager.difficulty == LevelManager.Difficulty.Hard)
+        {
+            firstNumber = Random.Range(100, 999);
+            secondNumber = Random.Range(100, 999);
+        }
+
         correctAnswer = firstNumber - secondNumber;
 
         questionText.GetComponentInChildren<TMP_Text>().text = firstNumber + " - " + secondNumber;
@@ -102,8 +144,16 @@ public class QuestionManager : MonoBehaviour
     }
     void setMultiplicationQuestion()
     {
-        firstNumber = Random.Range(1, 10);
-        secondNumber = Random.Range(2, 10);
+        if(levelManager.difficulty == LevelManager.Difficulty.Medium)
+        {
+            firstNumber = Random.Range(1, 10);
+            secondNumber = Random.Range(2, 10);
+        }
+        else if(levelManager.difficulty == LevelManager.Difficulty.Hard)
+        {
+            firstNumber = Random.Range(10, 100);
+            secondNumber = Random.Range(2, 10);
+        }
         correctAnswer = firstNumber * secondNumber;
 
         questionText.GetComponentInChildren<TMP_Text>().text = firstNumber + " x " + secondNumber;

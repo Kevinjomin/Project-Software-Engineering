@@ -27,6 +27,12 @@ public class GameManager : MonoBehaviour
         StartCoroutine(LoadAndResetNewRun());
     }
 
+    public void EndRun()
+    {
+        //Destroy(FindObjectOfType<LevelManager>());
+        LoadScene("Main Menu Scene");
+    }
+
     public IEnumerator LoadAndResetNewRun()
     {
         Debug.Log("starting new run");

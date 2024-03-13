@@ -165,6 +165,7 @@ public class BattleSystem : MonoBehaviour
         else if(battleState == BattleState.Lost)
         {
             Debug.Log("Defeat");
+            gameManager.EndRun();
         }
     }
 
