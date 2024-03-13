@@ -30,6 +30,14 @@ public class PlayerManager : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
     }
 
+    public void ResetRun()
+    {
+        goldObtained = 0;
+        currentHP = maxHP;
+        //check upgrades again after the system is implemented
+        Debug.LogWarning("Make sure to check upgrades stat again at playerManager");
+    }
+
     public bool isDead()
     {
         if(currentHP <= 0)

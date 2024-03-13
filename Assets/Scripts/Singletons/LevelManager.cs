@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -14,7 +15,14 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] private List<GameObject> stageList;
 
+    public enum Difficulty
+    {
+        Easy, Medium, Hard
+    }
+
+    public Difficulty difficulty = Difficulty.Easy;
     public int currentLevel = 1;
+
 
     private void Awake()
     {
@@ -30,6 +38,27 @@ public class LevelManager : MonoBehaviour
 
         gameManager = FindObjectOfType<GameManager>();
         SetupLevel();
+    }
+
+    public void ResetRun()
+    {
+        currentLevel = 1;
+        if(gameManager.tempDifficulty == 1)
+        {
+            difficulty = Difficulty.Easy;
+        }
+        else if(gameManager.tempDifficulty == 2)
+        {
+            difficulty = Difficulty.Medium;
+        }
+        else if(gameManager.tempDifficulty == 3)
+        {
+            difficulty = Difficulty.Hard;
+        }
+        else
+        {
+            Debug.LogError("Level manager cannot find selected difficulty from gameManager");
+        }
     }
 
     public void SetupLevel()
@@ -51,7 +80,6 @@ public class LevelManager : MonoBehaviour
         currentLevel++;
         gameManager.ReloadCurrentScene();
     }
-
 
     private void RemoveCurrentLevel()
     {

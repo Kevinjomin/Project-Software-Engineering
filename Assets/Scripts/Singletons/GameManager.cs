@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
+
+    public int tempDifficulty;
+
     private void Awake()
     {
         if (instance == null)
@@ -18,6 +21,28 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void StartNewRun()
+    {
+        StartCoroutine(LoadAndResetNewRun());
+    }
+
+    public IEnumerator LoadAndResetNewRun()
+    {
+        Debug.Log("starting new run");
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Overworld Scene");
+
+        // Wait until the scene is fully loaded
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+        Debug.Log("scene loaded");
+
+        FindObjectOfType<PlayerManager>().ResetRun();
+        FindObjectOfType<LevelManager>().ResetRun();
+    }
+
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
