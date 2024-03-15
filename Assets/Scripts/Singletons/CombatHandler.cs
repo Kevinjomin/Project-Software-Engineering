@@ -19,7 +19,7 @@ public class CombatHandler : MonoBehaviour
     public int enemyMaxHP;
     public int enemyCurrentHP;
     public int enemyDamage;
-    public int enemyGold;
+    public int enemyCoin;
 
     // handle enemy sprite between scenes
     private SpriteRenderer enemySpriteRenderer;
@@ -51,9 +51,9 @@ public class CombatHandler : MonoBehaviour
         playerDamageMultiplier = damageMultiplier;
     }
 
-    public void ReadEnemyData(string name, int maxHP, int currentHP, int damage, int goldDropped, SpriteRenderer spriteRenderer)
+    public void ReadEnemyData(string name, int maxHP, int currentHP, int damage, int coinDropped, SpriteRenderer spriteRenderer)
     {
-        enemyGold = goldDropped;
+        enemyCoin = coinDropped;
         enemyName = name;
         enemyMaxHP = maxHP;
         enemyCurrentHP = currentHP;

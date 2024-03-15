@@ -29,8 +29,11 @@ public class GameManager : MonoBehaviour
 
     public void EndRun()
     {
-        //Destroy(FindObjectOfType<LevelManager>());
         LoadScene("Main Menu Scene");
+        FindObjectOfType<PlayerManager>().ResetRun();
+
+        Destroy(FindObjectOfType<LevelManager>().gameObject);
+        Destroy(FindObjectOfType<CombatHandler>().gameObject);
     }
 
     public IEnumerator LoadAndResetNewRun()

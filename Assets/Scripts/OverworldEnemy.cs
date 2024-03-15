@@ -8,7 +8,7 @@ public class OverworldEnemy : MonoBehaviour
     public int damage;
     public int maxHP;
     public int currentHP;
-    public int goldDrop;
+    public int coinDrop;
 
     private void Start()
     {

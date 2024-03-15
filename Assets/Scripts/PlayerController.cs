@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
             OverworldEnemy enemy = collision.gameObject.GetComponent<OverworldEnemy>();
             if (enemy != null)
             {
-                combatHandler.ReadEnemyData(enemy.enemyName, enemy.maxHP, enemy.currentHP, enemy.damage, enemy.goldDrop, enemy.GetComponentInChildren<SpriteRenderer>());
+                combatHandler.ReadEnemyData(enemy.enemyName, enemy.maxHP, enemy.currentHP, enemy.damage, enemy.coinDrop, enemy.GetComponentInChildren<SpriteRenderer>());
                 enemy.Despawn();
                 combatHandler.TriggerCombat();
             }

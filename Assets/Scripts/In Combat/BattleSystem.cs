@@ -159,7 +159,7 @@ public class BattleSystem : MonoBehaviour
         if (battleState == BattleState.Victory)
         {
             playerManager.currentHP = playerUnit.currentHP;
-            playerManager.obtainGold(combatHandler.enemyGold);
+            playerManager.ObtainCoin(combatHandler.enemyCoin);
             ReturnToOverworld();
         }
         else if(battleState == BattleState.Lost)
