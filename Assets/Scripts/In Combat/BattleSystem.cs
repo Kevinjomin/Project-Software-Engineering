@@ -14,6 +14,7 @@ public class BattleSystem : MonoBehaviour
 {
     private GameManager gameManager;
     private PlayerManager playerManager;
+    private PassiveManager passiveManager;
 
     public BattleState battleState;
 
@@ -24,8 +25,8 @@ public class BattleSystem : MonoBehaviour
     public Transform enemyLocation;
 
     CombatHandler combatHandler;
-    UnitParameters playerUnit;
-    UnitParameters enemyUnit;
+    public UnitParameters playerUnit;
+    public UnitParameters enemyUnit;
 
     public BattleHUD playerHUD;
     public BattleHUD enemyHUD;
@@ -35,6 +36,9 @@ public class BattleSystem : MonoBehaviour
 
     public int turn;
     public int pointThisTurn;
+    public int bonusFinalDamage;
+    public float bonusDamageMultiplier;
+
     public float timeLimit;
     public float timeLeft;
 
@@ -51,6 +55,7 @@ public class BattleSystem : MonoBehaviour
 
         gameManager = FindObjectOfType<GameManager>();
         playerManager = FindObjectOfType<PlayerManager>();
+        passiveManager = FindObjectOfType<PassiveManager>();
     }
 
     void Start()
@@ -78,6 +83,8 @@ public class BattleSystem : MonoBehaviour
         timeLimit = 10f;
         timeLimitDisplay.text = "";
 
+        ExecutePassive(IPassive.PassiveType.BattleStart);
+
         //setup HUD
         playerHUD.nameText.text = playerUnit.unitName;
         playerHUD.updateHP(playerUnit.currentHP, playerUnit.maxHP);
@@ -95,6 +102,10 @@ public class BattleSystem : MonoBehaviour
     {
         turn++;
         pointThisTurn = 0;
+        bonusFinalDamage = 0;
+        bonusDamageMultiplier = 1f;
+        ExecutePassive(IPassive.PassiveType.PlayerTurnStart);
+
         questionPanel.SetActive(true);
         questionManager.StartQuestionManager();
 
@@ -114,8 +125,10 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
-        int totalPlayerDamage = (int)(pointThisTurn * combatHandler.playerDamageMultiplier);
+        int totalPlayerDamage = (int)(pointThisTurn * combatHandler.playerDamageMultiplier * bonusDamageMultiplier + bonusFinalDamage);
         bool isDead = enemyUnit.takeDamage(totalPlayerDamage);
+
+        ExecutePassive(IPassive.PassiveType.PlayerTurnEnd);
 
         enemyHUD.updateHP(enemyUnit.currentHP, enemyUnit.maxHP);
 
@@ -135,9 +148,13 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
+        ExecutePassive(IPassive.PassiveType.EnemyTurnStart);
         timeLimitDisplay.text = "Enemy is attacking";
 
         bool isDead = playerUnit.takeDamage(enemyUnit.damage);
+
+        ExecutePassive(IPassive.PassiveType.EnemyTurnEnd);
+
         playerHUD.updateHP(playerUnit.currentHP, playerUnit.maxHP);
 
         yield return new WaitForSeconds(2f);
@@ -167,6 +184,11 @@ public class BattleSystem : MonoBehaviour
             Debug.Log("Defeat");
             gameManager.EndRun();
         }
+    }
+
+    void ExecutePassive(IPassive.PassiveType type)
+    {
+        passiveManager.ExecutePassiveByType(type);
     }
 
     private void ReturnToOverworld()

@@ -6,7 +6,8 @@ using TMPro;
 public class UnitParameters : MonoBehaviour
 {
     public GameObject floatingDamageDisplay;
-    private Transform floatingDamagePosition;
+    public GameObject floatingHealDisplay;
+    private Transform floatingTextPosition;
 
     public SpriteRenderer unitSprite;
     public float spritePositionX;
@@ -20,7 +21,7 @@ public class UnitParameters : MonoBehaviour
     private void Awake()
     {
         unitSprite = GetComponentInChildren<SpriteRenderer>();
-        floatingDamagePosition = transform.GetChild(1); // this is index 1
+        floatingTextPosition = transform.GetChild(1); // this is index 1
         if(currentHP > maxHP)
         {
             currentHP = maxHP;
@@ -29,7 +30,7 @@ public class UnitParameters : MonoBehaviour
 
     public bool takeDamage(int damage)
     {
-        GameObject damageDisplay = Instantiate(floatingDamageDisplay, floatingDamagePosition);
+        GameObject damageDisplay = Instantiate(floatingDamageDisplay, floatingTextPosition);
         damageDisplay.transform.GetChild(0).GetComponent<TMP_Text>().text = damage.ToString();
 
         currentHP -= damage;
@@ -41,6 +42,21 @@ public class UnitParameters : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+
+    public void heal(int healingAmount)
+    {
+        GameObject healDisplay = Instantiate(floatingHealDisplay, floatingTextPosition);
+        healDisplay.transform.GetChild(0).GetComponent<TMP_Text>().text = healingAmount.ToString();
+
+        if(currentHP + healingAmount > maxHP)
+        {
+            currentHP = maxHP;
+        }
+        else
+        {
+            currentHP += healingAmount;
         }
     }
 

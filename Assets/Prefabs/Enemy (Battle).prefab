@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 621940838053987352}
   - component: {fileID: 5006242442450496167}
   m_Layer: 0
-  m_Name: Test Enemy
+  m_Name: Enemy (Battle)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,8 +128,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatingDamageDisplay: {fileID: 1390447705570551037, guid: f6138e334dc0a2d4182ea15b467a9399, type: 3}
-  unitName: Test Enemy
+  floatingHealDisplay: {fileID: 4206590189567964492, guid: 06a67c0c3e9047d45895b0b474bc06ed, type: 3}
   unitSprite: {fileID: 0}
+  spritePositionX: 0
+  spritePositionY: 0
+  unitName: Test Enemy
   damage: 10
   maxHP: 50
   currentHP: 100
@@ -143,7 +146,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1943898752700612693}
   m_Layer: 0
-  m_Name: FloatingDamagePosition
+  m_Name: FloatingTextPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
