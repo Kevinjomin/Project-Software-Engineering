@@ -12,4 +12,5 @@ public interface IPassive
     void Execute(PassiveType passiveType);
     bool CheckCondition();
     void DebugData();
+    string ShowDescription();
 }

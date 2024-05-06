@@ -106,6 +106,7 @@ public class PlayerController : MonoBehaviour
         {
             playerManager.TakeDamage(Mathf.RoundToInt(playerManager.maxHP * 0.1f));
             ReloadPosition();
+            FindObjectOfType<UI_OverworldHUD>().UpdateHPSlider(playerManager.currentHP, playerManager.maxHP);
         }
     }
 

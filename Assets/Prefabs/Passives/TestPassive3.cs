@@ -34,4 +34,8 @@ public class TestPassive3 : MonoBehaviour, IPassive
         Debug.Log(description);
     }
 
+    public string ShowDescription()
+    {
+        return description;
+    }
 }

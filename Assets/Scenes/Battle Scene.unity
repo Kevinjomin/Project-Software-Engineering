@@ -611,7 +611,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.1
+  m_Value: 0.32
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -1221,6 +1221,8 @@ MonoBehaviour:
   enemyPrefab: {fileID: 6949280071363583749, guid: 46781441153fc194e9fc704c825aaa70, type: 3}
   playerLocation: {fileID: 1280709193}
   enemyLocation: {fileID: 1178512411}
+  playerUnit: {fileID: 0}
+  enemyUnit: {fileID: 0}
   playerHUD: {fileID: 1539692971}
   enemyHUD: {fileID: 538781558}
   questionPanel: {fileID: 628806391}
@@ -1228,6 +1230,8 @@ MonoBehaviour:
   questionManager: {fileID: 1510872698}
   turn: 0
   pointThisTurn: 0
+  bonusFinalDamage: 0
+  bonusDamageMultiplier: 0
   timeLimit: 15
   timeLeft: 0
 --- !u!4 &603027180

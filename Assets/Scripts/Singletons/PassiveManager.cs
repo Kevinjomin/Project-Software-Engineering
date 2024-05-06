@@ -20,19 +20,22 @@ public class PassiveManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private List<GameObject> GameObjectList = new List<GameObject>();
+    [SerializeField] private List<GameObject> gameObjectList = new List<GameObject>();
 
-    private List<IPassive> PassiveList;
+    private List<IPassive> passivePool;
+    private List<IPassive> obtainedPassiveList = new List<IPassive>();
+
+    private List<IPassive> selectionPassives = new List<IPassive>();
 
     private void FilterList()
     {
-        PassiveList = new List<IPassive>();
-        foreach (GameObject go in GameObjectList)
+        passivePool = new List<IPassive>();
+        foreach (GameObject go in gameObjectList)
         {
             IPassive component = go.GetComponent<IPassive>();
             if(component != null)
             {
-                PassiveList.Add(component);
+                passivePool.Add(component);
             }
         }
     }
@@ -44,19 +47,59 @@ public class PassiveManager : MonoBehaviour
 
     public void ExecutePassiveByType(IPassive.PassiveType type)
     {
-        foreach (IPassive passive in PassiveList)
+        foreach (IPassive passive in obtainedPassiveList)
         {
             passive.Execute(type);
         }
     }
 
+    public void GivePassiveSelection()
+    {
+        selectionPassives.Clear();
+        if(passivePool.Count >= 3)
+        {
+            // Randomly pick three different index
+            while (selectionPassives.Count < 3)
+            {
+                int randomIndex = Random.Range(0, passivePool.Count);
+                IPassive randomPassive = passivePool[randomIndex];
+                if (!selectionPassives.Contains(randomPassive))
+                {
+                    selectionPassives.Add(randomPassive);
+                }
+            }
 
-    
+        }
+
+        //send data to UI
+        UI_OverworldHUD UIScreen = FindObjectOfType<UI_OverworldHUD>();
+        UIScreen.EnablePassiveSelectionUI();
+        UIScreen.passiveSelection1_Text.text = selectionPassives[0].ShowDescription();
+        UIScreen.passiveSelection2_Text.text = selectionPassives[1].ShowDescription();
+        UIScreen.passiveSelection3_Text.text = selectionPassives[2].ShowDescription();
+    }
+
+    public void AddSelectionToList(int selectedIndex) // this is used by the selection UI to add the selected passive to the player
+    {
+        obtainedPassiveList.Add(selectionPassives[selectedIndex]);
+        if (passivePool.Contains(selectionPassives[selectedIndex]))
+        {
+            passivePool.Remove(selectionPassives[selectedIndex]);
+        }
+    }
+
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            foreach(IPassive passive in PassiveList)
+            Debug.LogWarning("OBTAINED LIST:");
+            foreach (IPassive passive in obtainedPassiveList)
+            {
+                passive.DebugData();
+            }
+            Debug.LogWarning("PASSIVE POOL:");
+            foreach (IPassive passive in passivePool)
             {
                 passive.DebugData();
             }
