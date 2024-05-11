@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class PlayerManager : MonoBehaviour
 
     private GameManager gameManager;
     private UpgradeManager upgradeManager;
+    private UI_OverworldHUD UI_Overworld;
 
     public string playerName;
     public int maxHP;
@@ -40,10 +42,23 @@ public class PlayerManager : MonoBehaviour
 
         maxHP = upgradeManager.baseHealth;
         damageMultiplier = upgradeManager.damageMultiplier;
-        coinMultiplier = upgradeManager.coinMultiplier;
+        coinMultiplier = upgradeManager.coinMultiplier * CalculateDifficultyMultiplier();
 
         coinObtainedThisRun = 0;
         currentHP = maxHP;
+    }
+
+    private float CalculateDifficultyMultiplier()
+    {
+        switch (gameManager.tempDifficulty)
+        {
+            case 3: //hard
+                return 4f;
+            case 2: //medium
+                return 2f;
+            default: //easy
+                return 1f;
+        }
     }
 
     public bool isDead()
@@ -67,10 +82,25 @@ public class PlayerManager : MonoBehaviour
 
     public void ObtainCoin(int coin)
     {
-        coinObtainedThisRun += (Mathf.RoundToInt(coin * coinMultiplier));
+        coinObtainedThisRun += CalculateCoin(coin);
+        //UpdateCoinCounter(coinObtainedThisRun);
     }
 
-    public void AddToTotalCoin()
+    private void UpdateCoinCounter(int coin)
+    {
+        if(UI_Overworld == null)
+        {
+            UI_Overworld = FindObjectOfType<UI_OverworldHUD>();
+        }
+        UI_Overworld.UpdateCoinCounter(coin);
+    }
+
+    public int CalculateCoin(int coin)
+    {
+        return (Mathf.RoundToInt(coin * coinMultiplier));
+    }
+
+    public void AddToTotalCoin() //this is when run ends
     {
         totalCoin += coinObtainedThisRun;
     }

@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
     private static LevelManager instance;
 
     private GameManager gameManager;
+    private PlayerManager playerManager;
 
     private List<Spawner> spawners;
     private GameObject chosenStage;
@@ -23,6 +24,8 @@ public class LevelManager : MonoBehaviour
     public Difficulty difficulty = Difficulty.Easy;
     public int currentLevel = 1;
 
+    public float multiplierHP;
+    public float multiplierDamage;
 
     private void Awake()
     {
@@ -37,12 +40,15 @@ public class LevelManager : MonoBehaviour
         }
 
         gameManager = FindObjectOfType<GameManager>();
+        playerManager = FindObjectOfType<PlayerManager>();
         SetupLevel();
     }
 
     public void ResetRun()
     {
         currentLevel = 1;
+        multiplierDamage = 1f;
+        multiplierHP = 1f;
         if(gameManager.tempDifficulty == 1)
         {
             difficulty = Difficulty.Easy;
@@ -78,7 +84,28 @@ public class LevelManager : MonoBehaviour
     public void EnterNextLevel()
     {
         currentLevel++;
+        multiplierHP = 1f + (0.2f * currentLevel - 1);
+        multiplierDamage = 1f + (0.1f * currentLevel - 1);
+        IncreaseCoinMultiplierByLevel();
         gameManager.ReloadCurrentScene();
+    }
+
+    private void IncreaseCoinMultiplierByLevel()
+    {
+        float multiplier;
+        switch (difficulty)
+        {
+            case Difficulty.Hard:
+                multiplier = 4f;
+                break;
+            case Difficulty.Medium:
+                multiplier = 2f;
+                break;
+            default:
+                multiplier = 1f;
+                break;
+        }
+        playerManager.coinMultiplier += 0.01f * multiplier;
     }
 
     private void RemoveCurrentLevel()

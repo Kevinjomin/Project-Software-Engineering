@@ -10,8 +10,14 @@ public class OverworldEnemy : MonoBehaviour
     public int currentHP;
     public int coinDrop;
 
+    private LevelManager levelManager;
+
     private void Start()
     {
+        levelManager = FindObjectOfType<LevelManager>();
+
+        damage += Mathf.RoundToInt(damage * levelManager.multiplierDamage);
+        maxHP += Mathf.RoundToInt(maxHP * levelManager.multiplierHP);
         currentHP = maxHP;
     }
 

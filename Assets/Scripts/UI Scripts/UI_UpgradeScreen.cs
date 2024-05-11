@@ -19,11 +19,15 @@ public class UI_UpgradeScreen : MonoBehaviour
     [SerializeField] private TMP_Text coinMultiplierText;
     [SerializeField] private Button coinUpgradeButton;
 
+    [SerializeField] private TMP_Text coinCounter;
+
     private UpgradeManager upgradeManager;
+    private PlayerManager playerManager;
 
     private void Awake()
     {
         upgradeManager = FindObjectOfType<UpgradeManager>();
+        playerManager = FindObjectOfType<PlayerManager>();
         if(upgradeManager == null)
         {
             Debug.LogError("Upgrade UI cannot find upgrade manager");
@@ -37,8 +41,15 @@ public class UI_UpgradeScreen : MonoBehaviour
         coinUpgradeButton.onClick.AddListener(UpgradeCoin);
     }
 
+    public void UpdateCoinCounter(int coin)
+    {
+        coinCounter.text = coin.ToString();
+    }
+
     private void UpdateValuesDisplayed()
     {
+        UpdateCoinCounter(playerManager.totalCoin);
+
         healthLevelText.text = "Level " + upgradeManager.healthLevel;
         baseHealthText.text = "Max health : " + upgradeManager.baseHealth.ToString();
         healthUpgradeButton.GetComponentInChildren<TMP_Text>().text = upgradeManager.healthUpgradeCost + " coins";
