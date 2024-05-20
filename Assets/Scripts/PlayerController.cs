@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     private LevelManager levelManager;
     private PlayerManager playerManager;
     public CombatHandler combatHandler;
+    public Animator animator;
 
     private float horizontalInput;
     private bool isFacingRight = true;
@@ -32,9 +33,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
-        if(Input.GetKeyDown(KeyCode.Space) && isGrounded())
+
+        animator.SetFloat("movementSpeed", Mathf.Abs(horizontalInput));
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpStrength);
+            animator.SetBool("isJumping", true);
         }
         if(Input.GetKeyUp(KeyCode.Space) && rb.velocity.y > 0f)
         {
@@ -51,7 +56,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        return Physics2D.OverlapCircle(groundCheck.position, 0.01f, groundLayer);
     }
 
     private void SaveLastGroundedPosition()
@@ -93,6 +98,7 @@ public class PlayerController : MonoBehaviour
         else if (isGrounded())
         {
             SaveLastGroundedPosition();
+            animator.SetBool("isJumping", false);
         }
     }
 

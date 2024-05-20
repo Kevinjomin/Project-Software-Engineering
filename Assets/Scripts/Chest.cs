@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class Chest : MonoBehaviour
 {
     private PassiveManager passiveManager;
+    public Animator animator;
 
     private enum ChestState
     {
@@ -25,10 +27,18 @@ public class Chest : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F) && isInRange == true)
         {
-            passiveManager.GivePassiveSelection();
-            state = ChestState.Opened;
-            ShowPrompt(false);
+            StartCoroutine(OpenChest());
         }
+    }
+
+    private IEnumerator OpenChest()
+    {
+        animator.SetBool("isOpened", true);
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length - 0.5f);
+
+        passiveManager.GivePassiveSelection();
+        state = ChestState.Opened;
+        ShowPrompt(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

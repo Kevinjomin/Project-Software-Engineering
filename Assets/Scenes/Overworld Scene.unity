@@ -1087,6 +1087,8 @@ MonoBehaviour:
   - {fileID: 1141486410818621423, guid: 7017d9c41605f614f843777bce507b37, type: 3}
   difficulty: 0
   currentLevel: 1
+  multiplierHP: 0
+  multiplierDamage: 0
 --- !u!4 &1062282577
 Transform:
   m_ObjectHideFlags: 0
@@ -1921,7 +1923,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -2758455068094552871, guid: 1c4e57ecd91a466499d9fe69130590d6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
