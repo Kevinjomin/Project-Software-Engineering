@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
 
     private bool isGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.01f, groundLayer);
+        return Physics2D.OverlapCircle(groundCheck.position, 0.4f, groundLayer);
     }
 
     private void SaveLastGroundedPosition()
@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
             OverworldEnemy enemy = collision.gameObject.GetComponent<OverworldEnemy>();
             if (enemy != null)
             {
-                combatHandler.ReadEnemyData(enemy.enemyName, enemy.maxHP, enemy.currentHP, enemy.damage, enemy.coinDrop, enemy.GetComponentInChildren<SpriteRenderer>());
+                combatHandler.ReadEnemyData(enemy.enemyName, enemy.maxHP, enemy.currentHP, enemy.damage, enemy.coinDrop, enemy.GetComponentInChildren<SpriteRenderer>(), enemy.GetComponentInChildren<Animator>());
                 enemy.Despawn();
                 combatHandler.TriggerCombat();
             }

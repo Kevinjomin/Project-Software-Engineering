@@ -10,23 +10,25 @@ public class CombatHandler : MonoBehaviour
     private GameManager gameManager;
     private PlayerManager playerManager;
 
+    [Header("Player Info")]
     public string playerName;
     public int playerMaxHP;
     public int playerCurrentHP;
     public float playerDamageMultiplier;
 
+    [Header("Enemy Info")]
     public string enemyName;
     public int enemyMaxHP;
     public int enemyCurrentHP;
     public int enemyDamage;
     public int enemyCoin;
 
-    // handle enemy sprite between scenes
-    private SpriteRenderer enemySpriteRenderer;
+    [Header("Enemy Sprite Info")]
     public Sprite enemySprite;
     public Color enemySpriteColor;
-    public float enemySpritePositionX;
-    public float enemySpritePositionY;
+    public Vector2 enemySpritePosition;
+    public Vector2 enemySpriteScale;
+    public RuntimeAnimatorController enemyAnimatorController;
 
     private void Awake()
     {
@@ -51,28 +53,23 @@ public class CombatHandler : MonoBehaviour
         playerDamageMultiplier = damageMultiplier;
     }
 
-    public void ReadEnemyData(string name, int maxHP, int currentHP, int damage, int coinDropped, SpriteRenderer spriteRenderer)
+    public void ReadEnemyData(string name, int maxHP, int currentHP, int damage, int coinDropped, SpriteRenderer spriteRenderer, Animator animator)
     {
         enemyCoin = coinDropped;
         enemyName = name;
         enemyMaxHP = maxHP;
         enemyCurrentHP = currentHP;
         enemyDamage = damage;
-        enemySpriteRenderer = spriteRenderer;
         ReadSpriteRendererData(spriteRenderer);
+        enemyAnimatorController = animator.runtimeAnimatorController;
     }
 
     private void ReadSpriteRendererData(SpriteRenderer spriteRenderer)
     {
-        GetTransformPosition(spriteRenderer.transform);
         enemySprite = spriteRenderer.sprite;
         enemySpriteColor = spriteRenderer.color;
-    }
-
-    private void GetTransformPosition(Transform transform)
-    {
-        enemySpritePositionX = transform.localPosition.x;
-        enemySpritePositionY = transform.localPosition.y;
+        enemySpritePosition = spriteRenderer.transform.localPosition;
+        enemySpriteScale = spriteRenderer.transform.localScale;
     }
 
     public void TriggerCombat()

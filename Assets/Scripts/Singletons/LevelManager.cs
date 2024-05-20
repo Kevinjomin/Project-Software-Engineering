@@ -14,7 +14,13 @@ public class LevelManager : MonoBehaviour
     private List<Spawner> spawners;
     private GameObject chosenStage;
 
-    [SerializeField] private List<GameObject> stageList;
+    public enum Tileset
+    {
+        Grassland, Desert, Snow, Volcano
+    }
+    public Tileset tileset = Tileset.Grassland;
+
+    [SerializeField] private List<GameObject> grasslandStageList;
 
     public enum Difficulty
     {
@@ -138,14 +144,14 @@ public class LevelManager : MonoBehaviour
 
     private GameObject ChooseStageRandomly()
     {
-        if (stageList.Count == 0)
+        if (grasslandStageList.Count == 0)
         {
             Debug.Log("No stage in list");
             return null;
         }
-        int randomIndex = UnityEngine.Random.Range(0, stageList.Count);
+        int randomIndex = UnityEngine.Random.Range(0, grasslandStageList.Count);
 
-        return stageList[randomIndex];
+        return grasslandStageList[randomIndex];
     }
 
     private void FindSpawners(List<Spawner> spawnerList)

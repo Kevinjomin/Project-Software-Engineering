@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2641285190505367299}
   - component: {fileID: 8380724490123268017}
+  - component: {fileID: 5282188710968993679}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -82,6 +83,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &5282188710968993679
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3279863864524623842}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6949280071363583749
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,9 +149,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floatingDamageDisplay: {fileID: 1390447705570551037, guid: f6138e334dc0a2d4182ea15b467a9399, type: 3}
   floatingHealDisplay: {fileID: 4206590189567964492, guid: 06a67c0c3e9047d45895b0b474bc06ed, type: 3}
-  unitSprite: {fileID: 0}
-  spritePositionX: 0
-  spritePositionY: 0
+  unitSprite: {fileID: 8380724490123268017}
+  spritePosition: {x: 0, y: 0}
+  spriteScale: {x: 0, y: 0}
+  animatorController: {fileID: 0}
   unitName: Test Enemy
   damage: 10
   maxHP: 50

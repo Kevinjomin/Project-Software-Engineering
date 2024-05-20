@@ -34,6 +34,8 @@ public class BattleSystem : MonoBehaviour
     public TMP_Text timeLimitDisplay;
     public QuestionManager questionManager;
 
+    public Animator playerAnimator;
+
     public int turn;
     public int pointThisTurn;
     public int bonusFinalDamage;
@@ -60,6 +62,7 @@ public class BattleSystem : MonoBehaviour
 
     void Start()
     {
+
         battleState = BattleState.Start;
         StartCoroutine(SetupBattle());
     }
@@ -68,6 +71,7 @@ public class BattleSystem : MonoBehaviour
     {
         GameObject playerGO =  Instantiate(playerPrefab, playerLocation);
         playerUnit = playerGO.GetComponent<UnitParameters>();
+        playerAnimator = playerGO.GetComponentInChildren<Animator>();
 
         //import stat from combat manager to player unit
         playerUnit.unitName = combatHandler.playerName;
@@ -128,6 +132,8 @@ public class BattleSystem : MonoBehaviour
         int totalPlayerDamage = (int)(pointThisTurn * combatHandler.playerDamageMultiplier * bonusDamageMultiplier + bonusFinalDamage);
         bool isDead = enemyUnit.takeDamage(totalPlayerDamage);
 
+        playerAnimator.SetTrigger("isAttacking");
+
         ExecutePassive(IPassive.PassiveType.PlayerTurnEnd);
 
         enemyHUD.updateHP(enemyUnit.currentHP, enemyUnit.maxHP);
@@ -152,6 +158,14 @@ public class BattleSystem : MonoBehaviour
         timeLimitDisplay.text = "Enemy is attacking";
 
         bool isDead = playerUnit.takeDamage(enemyUnit.damage);
+        if (isDead)
+        {
+            playerAnimator.SetTrigger("isDead");
+        }
+        else
+        {
+            playerAnimator.SetTrigger("isAttacked");
+        }
 
         ExecutePassive(IPassive.PassiveType.EnemyTurnEnd);
 
@@ -175,6 +189,7 @@ public class BattleSystem : MonoBehaviour
     {
         if (battleState == BattleState.Victory)
         {
+            playerAnimator.SetTrigger("battleWon");
             playerManager.currentHP = playerUnit.currentHP;
             playerManager.ObtainCoin(combatHandler.enemyCoin);
             ReturnToOverworld();
@@ -207,8 +222,10 @@ public class BattleSystem : MonoBehaviour
 
         enemyUnit.unitSprite.sprite = combatHandler.enemySprite;
         enemyUnit.unitSprite.color = combatHandler.enemySpriteColor;
-        enemyUnit.spritePositionX = combatHandler.enemySpritePositionX;
-        enemyUnit.spritePositionY = combatHandler.enemySpritePositionY;
+        enemyUnit.spriteScale = combatHandler.enemySpriteScale;
+        enemyUnit.spritePosition = combatHandler.enemySpritePosition;
         enemyUnit.RepositionSprite();
+
+        enemyUnit.animator.runtimeAnimatorController = combatHandler.enemyAnimatorController;
     }
 }
