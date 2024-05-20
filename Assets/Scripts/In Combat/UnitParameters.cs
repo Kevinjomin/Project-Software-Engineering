@@ -10,6 +10,8 @@ public class UnitParameters : MonoBehaviour
     public GameObject floatingHealDisplay;
     private Transform floatingTextPosition;
 
+    public GameObject hitEffect;
+
     [Header("Unit Sprite Data")]
     public SpriteRenderer unitSprite;
     public Vector2 spritePosition;
@@ -39,6 +41,9 @@ public class UnitParameters : MonoBehaviour
 
         currentHP -= damage;
 
+        HitEffectAnimation();
+        StartCoroutine(FlashRed());
+
         if(currentHP <= 0)
         {
             return true; //die
@@ -55,6 +60,23 @@ public class UnitParameters : MonoBehaviour
         healDisplay.transform.GetChild(0).GetComponent<TMP_Text>().text = healingAmount.ToString();
 
         currentHP = Mathf.Min(currentHP + healingAmount, maxHP);
+    }
+
+    void HitEffectAnimation()
+    {
+        float positionY  = (transform.position.y + floatingTextPosition.position.y) / 2;
+        Vector2 position = new Vector2(transform.position.x, positionY);
+        Instantiate(hitEffect, position, Quaternion.identity);
+    }
+
+    IEnumerator FlashRed() //turn the sprite red momentarily
+    {
+        Color originalColor = unitSprite.color;
+        unitSprite.color = Color.red;
+
+        yield return new WaitForSeconds(0.5f);
+
+        unitSprite.color = originalColor;
     }
 
     public void RepositionSprite()

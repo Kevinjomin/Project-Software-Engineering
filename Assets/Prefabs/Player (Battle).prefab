@@ -149,9 +149,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floatingDamageDisplay: {fileID: 1390447705570551037, guid: f6138e334dc0a2d4182ea15b467a9399, type: 3}
   floatingHealDisplay: {fileID: 4206590189567964492, guid: 06a67c0c3e9047d45895b0b474bc06ed, type: 3}
+  hitEffect: {fileID: 6011666843721950759, guid: 74fe9a58aa1d3434699d0937ed7b9704, type: 3}
   unitSprite: {fileID: 0}
   spritePosition: {x: 0, y: 0}
   spriteScale: {x: 0, y: 0}
+  animator: {fileID: 0}
   unitName: PlayerName
   damage: 10
   maxHP: 100
