@@ -142,6 +142,7 @@ public class BattleSystem : MonoBehaviour
 
         if (isDead)
         {
+            Debug.LogWarning("Add enmy death animation");
             battleState = BattleState.Victory;
             EndBattle();
         }
@@ -189,10 +190,7 @@ public class BattleSystem : MonoBehaviour
     {
         if (battleState == BattleState.Victory)
         {
-            playerAnimator.SetTrigger("battleWon");
-            playerManager.currentHP = playerUnit.currentHP;
-            playerManager.ObtainCoin(combatHandler.enemyCoin);
-            ReturnToOverworld();
+            StartCoroutine(BattleVictory());
         }
         else if(battleState == BattleState.Lost)
         {
@@ -204,6 +202,17 @@ public class BattleSystem : MonoBehaviour
     void ExecutePassive(IPassive.PassiveType type)
     {
         passiveManager.ExecutePassiveByType(type);
+    }
+
+    IEnumerator BattleVictory()
+    {
+        playerAnimator.SetTrigger("battleWon");
+        playerManager.currentHP = playerUnit.currentHP;
+        playerManager.ObtainCoin(combatHandler.enemyCoin);
+
+        yield return new WaitForSeconds(2f);
+
+        ReturnToOverworld();
     }
 
     private void ReturnToOverworld()

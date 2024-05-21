@@ -30,7 +30,6 @@ public class TestPassive3 : MonoBehaviour, IPassive
 
     public void DebugData()
     {
-        Debug.Log(type);
         Debug.Log(description);
     }
 

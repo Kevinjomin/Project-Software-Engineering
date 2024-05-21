@@ -1212,6 +1212,8 @@ MonoBehaviour:
   tileset: 0
   grasslandStageList:
   - {fileID: 3074405646815356929, guid: a36c0ae3f78248c4abc10c6ebed93ad3, type: 3}
+  - {fileID: 6130394103856442682, guid: 75cdc899d2eaf8246b25c50bb82237c3, type: 3}
+  - {fileID: 629715414162111929, guid: 9d7fec85bf430ce498c80896e8703571, type: 3}
   difficulty: 0
   currentLevel: 1
   multiplierHP: 0

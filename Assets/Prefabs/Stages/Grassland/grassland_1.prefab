@@ -7851,6 +7851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3cd30751eff7794dabfa3f12afbaacb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnDirection: 0
   spawnableObjects:
   - {fileID: 8543439992137401679, guid: 7bb957d8515d0af4eb99dc43e6fd50ac, type: 3}
   - {fileID: 139656871842485772, guid: 97e78e1109539074fab98f4cbbfa9777, type: 3}
@@ -7979,6 +7980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3cd30751eff7794dabfa3f12afbaacb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnDirection: 0
   spawnableObjects:
   - {fileID: 8543439992137401679, guid: 7bb957d8515d0af4eb99dc43e6fd50ac, type: 3}
   - {fileID: 139656871842485772, guid: 97e78e1109539074fab98f4cbbfa9777, type: 3}
@@ -8008,8 +8010,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4708367133382095010}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 19.7, y: -18, z: 0.76423484}
-  m_LocalScale: {x: 121.10735, y: 7.0007896, z: 1}
+  m_LocalPosition: {x: 17.5408, y: -18, z: 0.76423484}
+  m_LocalScale: {x: 75.25308, y: 7.0007896, z: 1}
   m_Children: []
   m_Father: {fileID: 3074405646815356928}
   m_RootOrder: 5
@@ -9697,7 +9699,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
