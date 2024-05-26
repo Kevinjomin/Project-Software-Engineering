@@ -142,7 +142,7 @@ public class BattleSystem : MonoBehaviour
 
         if (isDead)
         {
-            Debug.LogWarning("Add enmy death animation");
+            enemyUnit.PlayEnemyDeathAnimation();
             battleState = BattleState.Victory;
             EndBattle();
         }

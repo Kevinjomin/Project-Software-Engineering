@@ -84,4 +84,34 @@ public class UnitParameters : MonoBehaviour
         unitSprite.transform.localPosition = new Vector3(spritePosition.x, spritePosition.y, unitSprite.transform.localPosition.z);
         unitSprite.transform.localScale = new Vector3(spriteScale.x, spriteScale.y, unitSprite.transform.localScale.z);
     }
+
+    public void PlayEnemyDeathAnimation()
+    {
+        StartCoroutine(TransformSprite());
+    }
+
+    private IEnumerator TransformSprite() //this is for the enemy death animation
+    {
+        float duration = 0.2f;
+        float elapsedTime = 0f;
+        Vector3 originalScale = transform.localScale;
+        Color originalColor = unitSprite.color;
+
+        while (elapsedTime < duration)
+        {
+            transform.localScale = Vector3.Lerp(originalScale, originalScale * 1.2f, elapsedTime / duration);
+
+            Color newColor = originalColor;
+            newColor.a = Mathf.Lerp(1f, 0f, elapsedTime / duration); //change opacity (alpha)
+            unitSprite.color = newColor;
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        // Ensure the final transform is set
+        transform.localScale = originalScale * 1.2f; 
+        Color finalColor = originalColor;
+        finalColor.a = 0f;
+        unitSprite.color = finalColor;
+    }
 }
