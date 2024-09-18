@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     public void EndRun()
     {
+        Time.timeScale = 1f;
         LoadScene("Main Menu Scene");
         FindObjectOfType<PlayerManager>().ResetRun();
 
