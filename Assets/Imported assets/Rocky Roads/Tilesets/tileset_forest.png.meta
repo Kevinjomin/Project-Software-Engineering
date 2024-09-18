@@ -93,7 +93,7 @@ TextureImporter:
       213: 6331811367757597227
     second: tileset_forest_29
   externalObjects: {}
-  serializedVersion: 12
+  serializedVersion: 13
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -110,10 +110,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -152,6 +154,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
   cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
@@ -164,6 +167,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -176,6 +180,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -188,6 +193,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
@@ -833,9 +839,39 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-  spritePackingTag: 
+    nameFileIdTable:
+      tileset_forest_0: 4008110067166161608
+      tileset_forest_1: 9010720434780433409
+      tileset_forest_10: -1458483726739094741
+      tileset_forest_11: -6626906317471203797
+      tileset_forest_12: -8856195290950849382
+      tileset_forest_13: -4524257222299261536
+      tileset_forest_14: 8706787386226113333
+      tileset_forest_15: -4774311844038266706
+      tileset_forest_16: -1874468773912472038
+      tileset_forest_17: 4542195541282659366
+      tileset_forest_18: 3227661081275640612
+      tileset_forest_19: -2122390686964723039
+      tileset_forest_2: 6563533980055321811
+      tileset_forest_20: -8607339829960119473
+      tileset_forest_21: -8984716065924763039
+      tileset_forest_22: 9141399888237123860
+      tileset_forest_23: -3603210218549644259
+      tileset_forest_24: 5794802491018681619
+      tileset_forest_25: 3696194055136688871
+      tileset_forest_26: 5091171592957226872
+      tileset_forest_27: 4012735597035992417
+      tileset_forest_28: -6621754433394065331
+      tileset_forest_29: 6331811367757597227
+      tileset_forest_3: 6972311006834953064
+      tileset_forest_4: -1278581905661387261
+      tileset_forest_5: -2661941864104057834
+      tileset_forest_6: 897978867938357352
+      tileset_forest_7: 1088591597611301496
+      tileset_forest_8: 2683817863052725346
+      tileset_forest_9: 1007063420153725941
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

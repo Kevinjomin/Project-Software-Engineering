@@ -6,6 +6,8 @@ public class UI_OverworldHUD : MonoBehaviour
 {
     private PlayerManager playerManager;
 
+    [SerializeField] private GameObject pausePanel;
+
     private int selectedButtonIndex = -1;
 
     public Slider hpSlider;
@@ -45,6 +47,21 @@ public class UI_OverworldHUD : MonoBehaviour
         passiveSelection1_InitialPosition = passiveSelection1_RectTransform.anchoredPosition;
         passiveSelection2_InitialPosition = passiveSelection2_RectTransform.anchoredPosition;
         passiveSelection3_InitialPosition = passiveSelection3_RectTransform.anchoredPosition;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(Time.timeScale == 0f)
+            {
+                ResumeButton();
+            }
+            else
+            {
+                PauseButton();
+            }
+        }
     }
 
     private void FixedUpdate() //this is inefficient, find better alternatives if possible
@@ -106,5 +123,22 @@ public class UI_OverworldHUD : MonoBehaviour
         selectedButtonIndex = index;
         passiveSelectionPanel.SetActive(false);
         FindObjectOfType<PassiveManager>().AddSelectionToList(selectedButtonIndex);
+    }
+
+    public void ResumeButton()
+    {
+        GameManager.instance.ResumeGame();
+        pausePanel.SetActive(false);
+    }
+
+    public void PauseButton()
+    {
+        GameManager.instance.PauseGame();
+        pausePanel.SetActive(true);
+    }
+
+    public void QuitButton()
+    {
+        GameManager.instance.EndRun();
     }
 }
