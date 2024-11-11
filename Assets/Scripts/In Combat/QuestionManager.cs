@@ -14,9 +14,12 @@ public class QuestionManager : MonoBehaviour
 
     private LevelManager levelManager;
     private QuestionsList questionsList;
+    public int listIndex;
+
     public BattleSystem battleSystem;
 
     public bool useRandomQuestion = true;
+    
 
     public TMP_Text questionText;
     public Button choice1;
@@ -36,6 +39,7 @@ public class QuestionManager : MonoBehaviour
     {
         levelManager = FindObjectOfType<LevelManager>();
         questionsList = GetComponent<QuestionsList>();
+        listIndex = -1;
     }
 
     public void StartQuestionManager()
@@ -53,9 +57,13 @@ public class QuestionManager : MonoBehaviour
     //this is only used for testing purposes
     private void PickPredeterminedQuestion()
     {
-        int random = Random.Range(0, questionsList.Questions.Count);
+        listIndex++;
+        if(listIndex > questionsList.Questions.Count - 1 || listIndex < 0)
+        {
+            listIndex = 0;
+        }
 
-        Question question = questionsList.Questions[random];
+        Question question = questionsList.Questions[listIndex];
 
         questionText.GetComponentInChildren<TMP_Text>().text = question.questionText;
         correctAnswer = question.correctAnswer;
