@@ -13,7 +13,10 @@ public class QuestionManager : MonoBehaviour
     private QuestionType questionType;
 
     private LevelManager levelManager;
+    private QuestionsList questionsList;
     public BattleSystem battleSystem;
+
+    public bool useRandomQuestion = true;
 
     public TMP_Text questionText;
     public Button choice1;
@@ -32,11 +35,52 @@ public class QuestionManager : MonoBehaviour
     private void Start()
     {
         levelManager = FindObjectOfType<LevelManager>();
+        questionsList = GetComponent<QuestionsList>();
     }
 
     public void StartQuestionManager()
     {
+        if (useRandomQuestion)
+        {
+            PickRandomQuestion();
+        }
+        else
+        {
+            PickPredeterminedQuestion();
+        }
+    }
 
+    //this is only used for testing purposes
+    private void PickPredeterminedQuestion()
+    {
+        int random = Random.Range(0, questionsList.Questions.Count);
+
+        Question question = questionsList.Questions[random];
+
+        questionText.GetComponentInChildren<TMP_Text>().text = question.questionText;
+        correctAnswer = question.correctAnswer;
+
+        //assign answer to buttons
+        RemoveButtonListener();
+
+        choice1.GetComponentInChildren<TMP_Text>().text = question.answer1.ToString();
+        choice2.GetComponentInChildren<TMP_Text>().text = question.answer2.ToString();
+        choice3.GetComponentInChildren<TMP_Text>().text = question.answer3.ToString();
+        choice4.GetComponentInChildren<TMP_Text>().text = question.answer4.ToString();
+
+        choice1.enabled = true;
+        choice2.enabled = true;
+        choice3.enabled = true;
+        choice4.enabled = true;
+
+        choice1.onClick.AddListener(() => OnButtonClick(choice1));
+        choice2.onClick.AddListener(() => OnButtonClick(choice2));
+        choice3.onClick.AddListener(() => OnButtonClick(choice3));
+        choice4.onClick.AddListener(() => OnButtonClick(choice4));
+    }
+
+    void PickRandomQuestion()
+    {
         //pick question type randomly
         int enumCount = System.Enum.GetValues(typeof(QuestionType)).Length;
 
@@ -49,7 +93,7 @@ public class QuestionManager : MonoBehaviour
             questionType = (QuestionType)Random.Range(0, enumCount);
         }
 
-        if(questionType == QuestionType.Addition)
+        if (questionType == QuestionType.Addition)
         {
             setAdditionQuestion();
         }
